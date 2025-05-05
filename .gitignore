@@ -1,3 +1,6 @@
 node_modules/
 backend/graphql-firebase-adminsdk-*.json
 
+# Ignorar claves privadas
+backend/serviceAccountKey.json
+backend/graphql-firebase-adminsdk-*.json

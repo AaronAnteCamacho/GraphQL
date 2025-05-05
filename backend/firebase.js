@@ -1,36 +1,26 @@
-// backend/firebase.js
+require('dotenv').config({ path: __dirname + '/.env' });
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey');
+const path = require('path');
+const fs = require('fs');
 
+// Obtener la ruta al archivo de credenciales desde la variable de entorno
+const keyPath = process.env.FIREBASE_KEY_PATH || path.join(__dirname, 'serviceAccountKey.json');
+
+// Validar que el archivo exista
+if (!fs.existsSync(keyPath)) {
+  throw new Error(`❌ No se encontró la clave de Firebase en: ${keyPath}`);
+}
+
+const serviceAccount = require(keyPath);
+
+// Inicializar Firebase
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
+// Conexión a Firestore
 const db = admin.firestore();
 const tareasRef = db.collection('tareas');
 
+// Exportar la referencia
 module.exports = { db, tareasRef };
-
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyB3DFX35ZVbt-0kNDIyVYo9F2ur03yB0Nk",
-  authDomain: "grahpql.firebaseapp.com",
-  databaseURL: "https://grahpql-default-rtdb.firebaseio.com",
-  projectId: "grahpql",
-  storageBucket: "grahpql.firebasestorage.app",
-  messagingSenderId: "924960732525",
-  appId: "1:924960732525:web:fa170f768ebdb418789664",
-  measurementId: "G-6R1EVTY6MB"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
