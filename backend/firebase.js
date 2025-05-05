@@ -8,7 +8,7 @@ const keyPath = process.env.FIREBASE_KEY_PATH || path.join(__dirname, 'serviceAc
 
 // Validar que el archivo exista
 if (!fs.existsSync(keyPath)) {
-  throw new Error(`❌ No se encontró la clave de Firebase en: ${keyPath}`);
+  throw new Error(`No se encontró la clave de Firebase en: ${keyPath}`);
 }
 
 const serviceAccount = require(keyPath);

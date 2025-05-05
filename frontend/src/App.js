@@ -56,7 +56,7 @@ function App() {
 
   const handleGuardar = async () => {
     if (!titulo.trim() || !fecha) {
-      setMensajeError('⚠️ Ambos campos son obligatorios.');
+      setMensajeError('Ambos campos son obligatorios.');
       return;
     }
 
